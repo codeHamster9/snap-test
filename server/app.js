@@ -28,7 +28,7 @@ function dbSession() {
 app.get("/api/products", async function (req, res, next) {
   try {
     const db = await dbSession();
-    res.json(db.products);
+    res.json(db.products.slice(0, 9));
   } catch (error) {
     next(error);
   }
