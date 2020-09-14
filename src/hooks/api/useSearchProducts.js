@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
-import consts from "../../common/consts";
-const { API } = consts;
+import * as API from "../../common/consts/api";
 
 const searchProducts = async (query) => {
   if (!query) return null;
