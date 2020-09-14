@@ -35,7 +35,6 @@ app.get("/api/products", async function (req, res, next) {
 });
 
 app.get("/api/product/:id?", async function (req, res, next) {
-  console.log(req.route);
   try {
     const { id } = req.params;
     const db = await dbSession();
