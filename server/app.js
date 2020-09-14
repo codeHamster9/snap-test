@@ -3,7 +3,7 @@ const { join } = require("path");
 const fs = require("fs");
 const app = express();
 const cors = require("cors");
-const port = 4000;
+const port = process.env.PORT || 4000;
 const appName = "Snappy Gifts";
 
 app.use(cors());
