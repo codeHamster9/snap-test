@@ -15,7 +15,7 @@ const Product = () => {
   return (
     <>
       <NavBar title="Snappy" color="teal" />
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center mt-8">
         <Card
           title={data.name}
           subtitle={data.vendor}

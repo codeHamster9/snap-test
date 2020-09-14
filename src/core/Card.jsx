@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Card = ({ title, subtitle, imageUrl }) => {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="max-w-sm rounded overflow-hidden shadow">
       <img
         className="w-full"
         src={imageUrl}

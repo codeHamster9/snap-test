@@ -63,6 +63,12 @@ app.get("/api/search", async function (req, res) {
   }
 });
 
+app.get("/api/vendors", async function (req, res) {
+  const db = await dbSession();
+  const vendors = db.vendors;
+  res.json(vendors);
+});
+
 app.use(express.static(join(__dirname, "../build/")));
 
 app.get("*", function response(req, res) {

@@ -2,67 +2,100 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Textfield from "../../core/Textfield";
 import Card from "../../core/Card";
+import NavBar from "../../core/NavBar";
 import useProducts from "../../hooks/api/useProducts";
 import useSearchProducts from "../../hooks/api/useSearchProducts";
+import useVendors from "../../hooks/api/useVendors";
 import useDebounce from "../../hooks/utils/useDebounce";
+import DropDown from "../../core/DropDown";
 
 const Products = () => {
   const [search, setSearch] = useState("");
-  const [prods, setProds] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [selected, setSelected] = useState("");
+  const [vendors, setvendors] = useState([]);
   const debouncedSearch = useDebounce(search, 500);
-  const productsResponse = useProducts();
-  const searchResponse = useSearchProducts(debouncedSearch);
+  const productsQuery = useProducts();
+  const vendorsQuery = useVendors();
+  const searchQuery = useSearchProducts(debouncedSearch);
   const history = useHistory();
 
   const isLoading = (loaders) =>
     loaders.filter((loader) => loader.status === "loading").length;
 
   useEffect(() => {
-    if (productsResponse.data) {
-      setProds(productsResponse.data);
+    if (productsQuery.data) {
+      setProducts(productsQuery.data);
     }
-  }, [productsResponse.data]);
+  }, [productsQuery.data]);
 
   useEffect(() => {
-    if (debouncedSearch && searchResponse.data) {
-      setProds(searchResponse.data);
-    } else {
-      setProds(productsResponse.data || []);
+    if (vendorsQuery.data) {
+      setvendors(vendorsQuery.data);
     }
-  }, [debouncedSearch, searchResponse.data, productsResponse.data]);
+  }, [vendorsQuery.data]);
+
+  useEffect(() => {
+    let productData = [];
+    if (debouncedSearch && searchQuery.data) {
+      productData = searchQuery.data;
+    } else {
+      productData = productsQuery.data || [];
+    }
+    setProducts(filterByVendor(selected.toLowerCase(), productData));
+  }, [debouncedSearch, searchQuery.data, productsQuery.data, selected]);
 
   const handleClick = (id) => {
     history.push(`/product/${id}`);
   };
 
+  const filterByVendor = (vendor, products) => {
+    if (!vendor) return products;
+
+    return products.filter((p) => p.vendor.toLowerCase() === vendor);
+  };
+
+  const changeVendor = (selected) => {
+    setSelected(selected);
+  };
+
   return (
-    <div className="flex flex-col">
-      <div className="w-1/3"></div>
-      <Textfield value={search} onChange={(v) => setSearch(v)} />
-      <div className="flex flex-wrap">
-        {isLoading([productsResponse, searchResponse]) ? (
-          "Loading..."
-        ) : productsResponse.status === "error" ? (
-          <span>Error: {productsResponse.error.message}</span>
-        ) : (
-          <>
-            {prods.map((card) => (
-              <div
-                className="m-2"
-                key={card.id}
-                onClick={() => handleClick(card.id)}
-              >
-                <Card
-                  title={card.name}
-                  subtitle={card.vendor}
-                  imageUrl={card.media[1].url}
-                />
-              </div>
-            ))}
-          </>
-        )}
+    <>
+      <NavBar title="Snappy" color="teal" />
+      <div className="flex flex-col items-center">
+        <div className="w-full mt-4 mb-12 flex justify-around">
+          <div className="w-1/3">
+            <Textfield value={search} onChange={(v) => setSearch(v)} />
+          </div>
+          <div className="flex-shrink w-1/3 mt-2">
+            <DropDown items={vendors} onChange={changeVendor} />
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-center">
+          {isLoading([productsQuery, searchQuery]) ? (
+            "Loading..."
+          ) : productsQuery.status === "error" ? (
+            <span>Error: {productsQuery.error.message}</span>
+          ) : (
+            <>
+              {products.map((card) => (
+                <div
+                  className="m-2"
+                  key={card.id}
+                  onClick={() => handleClick(card.id)}
+                >
+                  <Card
+                    title={card.name}
+                    subtitle={card.vendor}
+                    imageUrl={card.media[1].url}
+                  />
+                </div>
+              ))}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

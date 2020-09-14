@@ -6,7 +6,7 @@ const NavBar = ({ title, color }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push(`/products`);
+    history.push(`/`);
   };
 
   return (
