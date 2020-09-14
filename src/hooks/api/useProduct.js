@@ -1,7 +1,9 @@
 import { useQuery } from "react-query";
+import consts from "../../common/consts";
+const { API } = consts;
 
 const getProduct = async (id) => {
-  const data = await fetch(`http://localhost:4000/api/product/${id}`);
+  const data = await fetch(`${API.PREFIX}/product/${id}`);
   return data.json();
 };
 

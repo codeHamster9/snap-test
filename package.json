@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build:tailwind": "tailwindcss build src/styles/tailwind.css -o src/styles/tailwind.output.css",
-    "prestart": "npm run build:tailwind",
+    "predev:client": "npm run build:tailwind",
     "prebuild": "npm run build:tailwind",
     "dev:client": "react-scripts start",
     "dev:server": "nodemon ./server/app.js",

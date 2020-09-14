@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 const DropDown = ({ items, onChange }) => {
   return (
@@ -26,7 +25,5 @@ const DropDown = ({ items, onChange }) => {
     </div>
   );
 };
-
-DropDown.propTypes = {};
 
 export default DropDown;

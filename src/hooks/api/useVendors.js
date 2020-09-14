@@ -1,7 +1,9 @@
 import { useQuery } from "react-query";
+import consts from "../../common/consts";
+const { API } = consts;
 
 const getVendors = async () => {
-  const data = await fetch("http://localhost:4000/api/vendors");
+  const data = await fetch(`${API.PREFIX}/vendors`);
   return data.json();
 };
 
