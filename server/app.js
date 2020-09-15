@@ -26,9 +26,17 @@ function dbSession() {
 }
 
 app.get("/api/products", async function (req, res, next) {
+  const { q } = req.query;
+
   try {
     const db = await dbSession();
-    res.json(db.products);
+    let products = db.products;
+    if (q) {
+      products = db.products.filter((product) =>
+        product.name.toLowerCase().includes(q.toLowerCase())
+      );
+    }
+    res.json(products);
   } catch (error) {
     next(error);
   }
@@ -46,19 +54,6 @@ app.get("/api/product/:id?", async function (req, res, next) {
     }
   } catch (error) {
     next(error);
-  }
-});
-
-app.get("/api/search", async function (req, res) {
-  const { q } = req.query;
-  if (!q) {
-    res.status(400).send("search query missing");
-  } else {
-    const db = await dbSession();
-    const searchResults = db.products.filter((product) =>
-      product.name.toLowerCase().includes(q.toLowerCase())
-    );
-    res.json(searchResults);
   }
 });
 

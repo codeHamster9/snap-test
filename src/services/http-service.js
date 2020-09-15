@@ -1,9 +1,8 @@
 import axios from "axios";
-import { isDebug } from "@/utils/helpers";
-import * as API from "../../common/consts/api";
+import * as API from "../common/consts/api";
 
 const config = {
-  baseURL: isDebug ? "https://local.fbx.im:5443/api/" : "/api/",
+  baseURL: API.PREFIX,
 };
 
 const instance = axios.create(config);
@@ -17,26 +16,26 @@ const handleHttpErrors = [
         break;
       case 403:
         break;
-      case 500: {
+      case 500:
         break;
-      }
+      default:
+        break;
     }
     return Promise.reject(response);
   },
 ];
 
+const parseUrl = (url) => `${API.PREFIX}${url}`;
 // request interceptors
 instance.interceptors.request.use();
 
 // response interceptors
 instance.interceptors.response.use(...handleHttpErrors);
 
-const httpClient = {
-  get: (url, params) => instance.get(url, { params }),
-  post: (url, payload) => instance.post(url, payload),
-  put: (url, payload) => instance.put(url, payload),
-  patch: (url, payload) => instance.patch(url, payload),
-  delete: (url, params) => instance.delete(url, { params }),
+export const httpClient = {
+  get: (url, params) => instance.get(parseUrl(url), { params }),
+  post: (url, payload) => instance.post(parseUrl(url), payload),
+  put: (url, payload) => instance.put(parseUrl(url), payload),
+  patch: (url, payload) => instance.patch(parseUrl(url), payload),
+  delete: (url, params) => instance.delete(parseUrl(url), { params }),
 };
-
-export default httpClient;

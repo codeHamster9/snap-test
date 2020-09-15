@@ -1,11 +1,15 @@
 import { useQuery } from "react-query";
-import * as API from "../../common/consts/api";
+import { httpClient } from "../../services/http-service";
 
-const getProducts = async () => {
-  const data = await fetch(`${API.PREFIX}/products`);
-  return data.json();
+const getProducts = async (query) => {
+  let url = `/products`;
+  if (query) {
+    url += `?q=${query}`;
+  }
+  const { data } = await httpClient.get(url);
+  return data;
 };
 
-export default function useProducts() {
-  return useQuery("posts", getProducts);
+export default function useProducts(query) {
+  return useQuery(query, getProducts);
 }

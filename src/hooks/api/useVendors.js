@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
-import * as API from "../../common/consts/api";
+import { httpClient } from "../../services/http-service";
 
 const getVendors = async () => {
-  const data = await fetch(`${API.PREFIX}/vendors`);
-  return data.json();
+  const { data } = await httpClient.get(`/vendors`);
+  return data;
 };
 
 export default function useVendors() {

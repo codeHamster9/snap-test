@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
-import * as API from "../../common/consts/api";
+import { httpClient } from "../../services/http-service";
 
 const getProduct = async (id) => {
-  const data = await fetch(`${API.PREFIX}/product/${id}`);
-  return data.json();
+  const { data } = await httpClient.get(`/product/${id}`);
+  return data;
 };
 
 export default function useProduct(id) {

@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
-import * as API from "../../common/consts/api";
+import { httpClient } from "../../services/http-service";
 
 const searchProducts = async (query) => {
   if (!query) return null;
-  const data = await fetch(`${API.PREFIX}/search?q=${query}`);
-  return data.json();
+  const response = await httpClient.get(`/search?q=${query}`);
+  return response.data;
 };
 
 export default function useSearchProducts(query) {
