@@ -24,6 +24,7 @@ const Products = () => {
   }, [productsQuery.data]);
 
   const gotoProduct = (id) => {
+    if (id === "uuid") return;
     history.push(`/product/${id}`);
   };
 
@@ -44,14 +45,13 @@ const Products = () => {
   };
 
   const injectPromotion = (items) => {
+    // prevent double promoting bug
+    const promoted = items.find((i) => i.id === "uuid");
+    if (promoted) return;
+
     const promotion = {
       id: "uuid",
-      media: [
-        {},
-        {
-          url: "http://placehold.jp/380x380.png",
-        },
-      ],
+      media: [{}, { url: "http://placehold.jp/380x380.png" }],
       name: "Promotion Card",
       order: 0,
       vendor: "buy today and get 10% off",
