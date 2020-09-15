@@ -8,9 +8,7 @@ import { Switch, BrowserRouter as Router } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Switch>
-        <React.Fragment>{Routes}</React.Fragment>
-      </Switch>
+      <Switch>{Routes}</Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

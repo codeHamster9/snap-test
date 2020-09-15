@@ -10,6 +10,26 @@ const DropDown = ({ items, onChange }) => {
 
   return (
     <>
+      <button
+        onClick={(e) => change(e.target.value)}
+        className="text-gray-800 font-bold py-2 rounded inline-flex items-center focus:outline-none "
+      >
+        <svg
+          className="fill-current w-4 h-4 mr-2"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 40 40"
+        >
+          <path
+            style={{
+              stroke: "gray",
+              fill: "transparent",
+              strokeLinecap: "round",
+              strokeWidth: 5,
+            }}
+            d="M 10,10 L 30,30 M 30,10 L 10,30"
+          />
+        </svg>
+      </button>
       <div className="inline-block relative w-64">
         <select
           onChange={(e) => change(e.target.value)}
@@ -33,18 +53,6 @@ const DropDown = ({ items, onChange }) => {
           </svg>
         </div>
       </div>
-      <button
-        onClick={(e) => change(e.target.value)}
-        className="text-gray-800 font-bold py-2 px-2 rounded inline-flex items-center focus:outline-none "
-      >
-        <svg
-          className="fill-current w-4 h-4 mr-2"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 40 40"
-        >
-          <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
-        </svg>
-      </button>
     </>
   );
 };

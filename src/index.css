@@ -11,10 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.close-x {
-  stroke: black;
-  fill: transparent;
-  stroke-linecap: round;
-  stroke-width: 5;
-}

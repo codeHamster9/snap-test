@@ -11,8 +11,6 @@
 Client:
 
 - promotion card
-- layout component
-- http client wrapper over axios ? optional
 
 Server:
 

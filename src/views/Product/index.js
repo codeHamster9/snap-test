@@ -1,6 +1,6 @@
 import React from "react";
+import Page from "../../layout/Page";
 import Card from "../../core/Card";
-import NavBar from "../../core/NavBar";
 import useProduct from "../../hooks/api/useProduct";
 import { useParams } from "react-router-dom";
 
@@ -13,8 +13,7 @@ const Product = () => {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <>
-      <NavBar title="Snappy" color="teal" />
+    <Page>
       <div className="flex flex-col justify-center items-center mt-8">
         <Card
           title={data.name}
@@ -30,7 +29,7 @@ const Product = () => {
           ></video>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 
