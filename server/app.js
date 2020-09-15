@@ -1,10 +1,13 @@
 const express = require("express");
 const { join } = require("path");
+const CacheService = require("./services/cache-service");
 const fs = require("fs");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 4000;
 const appName = "Snappy Gifts";
+
+const cache = new CacheService(1);
 
 app.use(cors());
 
@@ -25,16 +28,28 @@ function dbSession() {
   });
 }
 
+function filterProductsByQuery(query, products) {
+  return products.filter((product) =>
+    product.name.toLowerCase().includes(query.toLowerCase())
+  );
+}
+
 app.get("/api/products", async function (req, res, next) {
   const { q } = req.query;
 
   try {
     const db = await dbSession();
     let products = db.products;
+
     if (q) {
-      products = db.products.filter((product) =>
-        product.name.toLowerCase().includes(q.toLowerCase())
-      );
+      const cached = cache.get(q);
+      if (cached) {
+        products = cached;
+        console.log(`"from cache - q:${q} results:${products.length}`);
+      } else {
+        products = filterProductsByQuery(q, products);
+        cache.set(q, products);
+      }
     }
     res.json(products);
   } catch (error) {

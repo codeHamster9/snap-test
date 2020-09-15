@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Textfield from "../../core/Textfield";
-import Card from "../../core/Card";
 import useProducts from "../../hooks/api/useProducts";
 import useVendors from "../../hooks/api/useVendors";
 import useDebounce from "../../hooks/utils/useDebounce";
+import Textfield from "../../core/Textfield";
 import DropDown from "../../core/DropDown";
+import Card from "../../core/Card";
 import Page from "../../layout/Page";
 
 const Products = () => {
@@ -20,7 +20,7 @@ const Products = () => {
     if (productsQuery.isFetched) {
       setProducts(productsQuery.data);
     }
-  }, [productsQuery.isFetched]);
+  }, [productsQuery.data]);
 
   const gotoProduct = (id) => {
     history.push(`/product/${id}`);
