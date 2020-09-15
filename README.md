@@ -8,10 +8,3 @@
 `run npm start` - will start the server
 
 |TODO:
-Client:
-
-- promotion card
-
-Server:
-
-- add cache for search

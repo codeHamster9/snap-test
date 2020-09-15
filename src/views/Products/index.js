@@ -18,6 +18,7 @@ const Products = () => {
 
   useEffect(() => {
     if (productsQuery.isFetched) {
+      injectPromotion(productsQuery.data);
       setProducts(productsQuery.data);
     }
   }, [productsQuery.data]);
@@ -30,6 +31,7 @@ const Products = () => {
     const filtered = productsQuery.data.filter(
       (p) => p.vendor.toLowerCase() === vendor.toLowerCase()
     );
+    injectPromotion(filtered);
     setProducts(filtered);
   };
 
@@ -41,18 +43,40 @@ const Products = () => {
     }
   };
 
+  const injectPromotion = (items) => {
+    const promotion = {
+      id: "uuid",
+      media: [
+        {},
+        {
+          url: "http://placehold.jp/380x380.png",
+        },
+      ],
+      name: "Promotion Card",
+      order: 0,
+      vendor: "buy today and get 10% off",
+    };
+
+    //inject at index 5
+    if (items.length >= 5) {
+      items.splice(4, 0, promotion);
+    } else if (items.length > 0) {
+      items.push(promotion);
+    }
+  };
+
   return (
     <Page>
       <div className="flex flex-col items-center">
         <div className="w-full mt-4 mb-12 flex justify-around">
-          <div className="w-1/3">
-            <Textfield value={search} onChange={(v) => setSearch(v)} />
+          <div className="w-1/4">
+            <Textfield onInput={(v) => setSearch(v)} />
           </div>
-          <div className="flex-shrink w-1/3 mt-2 text-right">
+          <div className="flex-shrink mt-2 text-right">
             <DropDown items={vendorsQuery.data} onChange={changeVendor} />
           </div>
         </div>
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center px-10 w-full">
           {productsQuery.status === "loading" ? (
             "Loading..."
           ) : productsQuery.status === "error" ? (
@@ -61,14 +85,14 @@ const Products = () => {
             <>
               {products.map((card) => (
                 <div
-                  className="m-2"
+                  className="my-4 w-1/3 flex justify-center"
                   key={card.id}
                   onClick={() => gotoProduct(card.id)}
                 >
                   <Card
                     title={card.name}
                     subtitle={card.vendor}
-                    imageUrl={card.media[1].url}
+                    imageUrl={card.media[1]?.url}
                   />
                 </div>
               ))}

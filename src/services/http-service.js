@@ -25,7 +25,6 @@ const handleHttpErrors = [
   },
 ];
 
-const parseUrl = (url) => `${API.PREFIX}${url}`;
 // request interceptors
 instance.interceptors.request.use();
 
@@ -33,9 +32,9 @@ instance.interceptors.request.use();
 instance.interceptors.response.use(...handleHttpErrors);
 
 export const httpClient = {
-  get: (url, params) => instance.get(parseUrl(url), { params }),
-  post: (url, payload) => instance.post(parseUrl(url), payload),
-  put: (url, payload) => instance.put(parseUrl(url), payload),
-  patch: (url, payload) => instance.patch(parseUrl(url), payload),
-  delete: (url, params) => instance.delete(parseUrl(url), { params }),
+  get: (url, params) => instance.get(url, { params }),
+  post: (url, payload) => instance.post(url, payload),
+  put: (url, payload) => instance.put(url, payload),
+  patch: (url, payload) => instance.patch(url, payload),
+  delete: (url, params) => instance.delete(url, { params }),
 };
