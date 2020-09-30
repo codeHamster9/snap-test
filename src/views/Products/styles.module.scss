@@ -1,0 +1,11 @@
+@use 'sass:map';
+
+$red: #0544;
+$green: #ffd6d623;
+
+.background {
+  background-color: $red;
+}
+:export {
+  $red: 111;
+}

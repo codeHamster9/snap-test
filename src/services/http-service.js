@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as API from "../common/consts/api";
+import * as API from "@/common/consts/api";
 
 const config = {
   baseURL: API.PREFIX,

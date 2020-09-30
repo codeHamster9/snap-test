@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./index.scss";
 import "./styles/tailwind.output.css";
 import { Routes } from "./routes";
 import { Switch, BrowserRouter as Router } from "react-router-dom";

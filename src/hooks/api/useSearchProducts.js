@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { httpClient } from "../../services/http-service";
+import { httpClient } from "@/services/http-service";
 
 const searchProducts = async (query) => {
   if (!query) return null;

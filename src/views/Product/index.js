@@ -1,7 +1,7 @@
 import React from "react";
-import Page from "../../layout/Page";
-import Card from "../../core/Card";
-import useProduct from "../../hooks/api/useProduct";
+import Page from "@/layout/Page";
+import Card from "@/core/Card";
+import useProduct from "@/hooks/api/useProduct";
 import { useParams } from "react-router-dom";
 
 const Product = () => {

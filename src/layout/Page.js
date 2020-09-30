@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../core/NavBar";
+import NavBar from "@/core/NavBar";
 
 const page = ({ children }) => {
   return (

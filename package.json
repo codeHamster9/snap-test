@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^5.6.4",
     "@tailwindcss/custom-forms": "^0.2.1",
     "@tailwindcss/typography": "^0.2.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
+    "babel-plugin-react-css-modules": "^5.2.6",
     "cors": "^2.8.5",
+    "craco-alias": "^2.1.1",
     "express": "^4.17.1",
     "node-cache": "^5.1.2",
+    "node-sass": "^4.14.1",
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -24,8 +28,8 @@
   },
   "scripts": {
     "build:tailwind": "tailwindcss build src/styles/tailwind.css -o src/styles/tailwind.output.css",
-    "predev:client": "npm run build:tailwind",
-    "dev:client": "react-scripts start",
+    "predev:clients": "npm run build:tailwind",
+    "dev:client": "craco start",
     "dev:server": "nodemon ./server/app.js",
     "start": "node ./server/app.js",
     "prebuild": "npm run build:tailwind",
@@ -47,5 +51,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {},
+  "rescripts": [
+    "env"
+  ]
 }

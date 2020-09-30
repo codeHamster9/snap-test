@@ -24,4 +24,8 @@ Card.propTypes = {
   imageUrl: PropTypes.string,
 };
 
+Card.defaultProps = {
+  imageUrl: "http://placehold.jp/380x380.png",
+};
+
 export default Card;

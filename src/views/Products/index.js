@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import useProducts from "../../hooks/api/useProducts";
-import useVendors from "../../hooks/api/useVendors";
-import useDebounce from "../../hooks/utils/useDebounce";
-import Textfield from "../../core/Textfield";
-import DropDown from "../../core/DropDown";
-import Card from "../../core/Card";
-import Page from "../../layout/Page";
+import useProducts from "@/hooks/api/useProducts";
+import useVendors from "@/hooks/api/useVendors";
+import useDebounce from "@/hooks/utils/useDebounce";
+import Textfield from "@/core/Textfield";
+import DropDown from "@/core/DropDown";
+import Card from "@/core/Card";
+import Page from "@/layout/Page";
+import styles from "./styles.module.scss";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -15,6 +16,8 @@ const Products = () => {
   const productsQuery = useProducts(debouncedSearch);
   const vendorsQuery = useVendors();
   const history = useHistory();
+
+  console.log(styles);
 
   useEffect(() => {
     if (productsQuery.isFetched) {
@@ -67,7 +70,7 @@ const Products = () => {
 
   return (
     <Page>
-      <div className="flex flex-col items-center">
+      <div className={styles.background}>
         <div className="w-full mt-4 mb-12 flex justify-around">
           <div className="w-1/4">
             <Textfield onInput={(v) => setSearch(v)} />
@@ -92,7 +95,7 @@ const Products = () => {
                   <Card
                     title={card.name}
                     subtitle={card.vendor}
-                    imageUrl={card.media[1]?.url}
+                    imageUrl={card.media[0]?.url}
                   />
                 </div>
               ))}
